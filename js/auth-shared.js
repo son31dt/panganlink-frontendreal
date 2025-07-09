@@ -36,7 +36,7 @@ async function setupSharedUI() {
     // PERUBAHAN UTAMA: Cek status toko pengguna dan tampilkan tombol yang sesuai
     if (sellerActionPlaceholder) {
         try {
-            const tokoResponse = await fetch(`http://localhost:3000/api/toko/by-user/${user.user_id}`);
+            const tokoResponse = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/toko/by-user/${user.user_id}`);
             if (tokoResponse.ok) {
                 // Jika punya toko, tampilkan link ke dashboard
                 sellerActionPlaceholder.innerHTML = `<a class="nav-link" href="dashboard-penjual.html">Dashboard Penjual</a>`;

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const deskripsi = document.getElementById('deskripsi_toko').value;
 
         try {
-            const response = await fetch('http://localhost:3000/api/toko', {
+            const response = await fetch('https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/toko', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

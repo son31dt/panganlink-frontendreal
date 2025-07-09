@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const response = await fetch(
-          "http://localhost:3000/api/users/register",
+          "https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/users/register",
           {
             method: "POST",
             headers: {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       try {
-        const response = await fetch("http://localhost:3000/api/users/login", {
+        const response = await fetch("https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/users/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

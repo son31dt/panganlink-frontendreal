@@ -20,7 +20,7 @@ async function renderCart() {
 
     for (const item of cart) {
         try {
-            const response = await fetch(`http://localhost:3000/api/produk/${item.id}`);
+            const response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk/${item.id}`);
             if (!response.ok) continue; // Lewati item jika produknya tidak ditemukan
             
             const product = await response.json();

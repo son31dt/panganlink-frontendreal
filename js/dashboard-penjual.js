@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function initializeDashboard() {
         try {
             // 1. Ambil data toko
-            const tokoResponse = await fetch(`http://localhost:3000/api/toko/by-user/${user.user_id}`);
+            const tokoResponse = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/toko/by-user/${user.user_id}`);
             if (!tokoResponse.ok) {
                 // Jika tidak punya toko, mungkin arahkan ke halaman buat toko
                 storeNamePlaceholder.textContent = 'Anda belum memiliki toko. Buat toko sekarang!';
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadAndRenderProducts() {
         if (!currentToko) return;
         try {
-            const productsResponse = await fetch(`http://localhost:3000/api/toko/${currentToko.toko_id}/produk`);
+            const productsResponse = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/toko/${currentToko.toko_id}/produk`);
             const products = await productsResponse.json();
             
             tableBody.innerHTML = ''; // Kosongkan tabel
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const kategoriSelect = document.getElementById('kategori_id');
         try {
             // Panggil API yang baru kita buat
-            const response = await fetch('http://localhost:3000/api/kategori');
+            const response = await fetch('https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/kategori');
             const kategori = await response.json();
 
             // Kosongkan pilihan lama dan isi dengan yang baru dari database
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentToko) return;
         const ordersTableBody = document.getElementById('orders-table-body');
         try {
-            const response = await fetch(`http://localhost:3000/api/pesanan/toko/${currentToko.toko_id}`);
+            const response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/pesanan/toko/${currentToko.toko_id}`);
             const orders = await response.json();
 
             ordersTableBody.innerHTML = '';
@@ -148,14 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let response;
         if (editMode) {
             // Mode Edit (PUT request)
-            response = await fetch(`http://localhost:3000/api/produk/${currentProductId}`, {
+            response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk/${currentProductId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(productData)
             });
         } else {
             // Mode Tambah (POST request)
-            response = await fetch(`http://localhost:3000/api/produk`, {
+            response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(productData)
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (target.classList.contains('btn-delete')) {
             if (confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
-                const response = await fetch(`http://localhost:3000/api/produk/${productId}`, { method: 'DELETE' });
+                const response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk/${productId}`, { method: 'DELETE' });
                 if (response.ok) {
                     loadAndRenderProducts();
                 } else {
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalTitle.textContent = 'Edit Produk';
             
             // Ambil data produk dan isi form
-            const response = await fetch(`http://localhost:3000/api/produk/${productId}`);
+            const response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk/${productId}`);
             const product = await response.json();
 
             document.getElementById('product-id').value = product.produk_id;

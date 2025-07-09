@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Tampilkan ringkasan pesanan
     for (const item of cart) {
-        const response = await fetch(`http://localhost:3000/api/produk/${item.id}`);
+        const response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk/${item.id}`);
         const product = await response.json();
         if (response.ok) {
             totalHarga += product.harga * item.quantity;
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Hitung ulang total harga untuk keamanan
         let finalTotalHarga = 0;
         for (const item of cart) {
-            const response = await fetch(`http://localhost:3000/api/produk/${item.id}`);
+            const response = await fetch(`https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk/${item.id}`);
             const product = await response.json();
             finalTotalHarga += product.harga * item.quantity;
         }
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             // 2. Kirim data ke backend
-            const response = await fetch('http://localhost:3000/api/pesanan', {
+            const response = await fetch('https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/pesanan', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
