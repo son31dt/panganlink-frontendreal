@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Marketplace - PanganLink</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+      body#page-top header.masthead {
+        /* Ganti tingginya menjadi lebih pendek, misal 30vh */
+        height: 20vh !important;
+        min-height: auto !important;
+
+        /* Properti ini menjaga gambar tetap di tengah */
+        background-position: center !important;
+        background-size: cover !important;
+      }
+    </style>
+  </head>
+  <body id="page-top">
+    <nav
+      class="navbar navbar-expand-lg navbar-light fixed-top py-3"
+      id="mainNav"
+    >
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#page-top">PanganLink Marketplace</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto my-2 my-lg-0 align-items-center">
+            <li class="nav-item" id="seller-action-placeholder"></li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="keranjang.html">
+                <i class="bi-cart-fill me-1"></i>
+                Keranjang
+                <span
+                  class="badge bg-dark text-white ms-1 rounded-pill"
+                  id="cart-count"
+                  >0</span
+                >
+              </a>
+            </li>
+            <li class="nav-item">
+              <span class="navbar-text me-3">
+                Halo, <strong id="userName"></strong>
+              </span>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-outline-danger" id="logoutButton">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead">
+      <div class="container px-4 px-lg-5 h-100">
+        <div
+          class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center"
+        >
+          <div class="col-lg-8 align-self-end">
+            <h1 class="text-white font-weight-bold">
+              Temukan Produk Segar Pilihan
+            </h1>
+            <hr class="divider" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-section bg-light" id="portfolio">
+      <div class="container px-4 px-lg-5">
+        <h2 class="text-center mt-0">Produk Tersedia</h2>
+        <hr class="divider" />
+        <div
+          id="product-container"
+          class="row gx-4 gx-lg-5 justify-content-center"
+        ></div>
+      </div>
+    </section>
+
+    <footer class="bg-light py-5">
+      <div class="container px-4 px-lg-5">
+        <div class="small text-center text-muted">
+          Copyright &copy; 2025 - PanganLink
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/marketplace.js"></script>
+    <script src="js/auth-shared.js"></script>
+  </body>
+</html>
