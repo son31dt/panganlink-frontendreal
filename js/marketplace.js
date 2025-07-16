@@ -1,51 +1,27 @@
-// Menunggu hingga seluruh halaman HTML dimuat sebelum menjalankan script
-document.addEventListener('DOMContentLoaded', () => {
-    const userContainer = document.getElementById('userName');
-    const logoutButton = document.getElementById('logoutButton');
-
-    // 1. Cek status login dari localStorage
-    const user = JSON.parse(localStorage.getItem('panganlink_user'));
-
-    // Jika tidak ada data user, paksa kembali ke halaman login
-    if (!user) {
-        alert('Anda harus login terlebih dahulu.');
-        window.location.href = 'login.html';
-        return; // Hentikan eksekusi kode selanjutnya
-    }
-
-    // 2. Tampilkan nama pengguna di navigasi
-    userContainer.textContent = user.nama;
-
-    // 3. Tambahkan fungsi untuk tombol logout
-    logoutButton.addEventListener('click', () => {
-        // Hapus data user dan keranjang dari localStorage
-        localStorage.removeItem('panganlink_user');
-        localStorage.removeItem('panganlink_cart');
-        alert('Anda telah logout.');
-        // Arahkan kembali ke halaman utama
-        window.location.href = 'index.html';
-    });
-    
-    // 4. Panggil fungsi untuk memuat produk dan mengupdate hitungan keranjang
-    loadProducts();
-    updateCartCount();
-});
-
 /**
- * Fungsi untuk memuat dan menampilkan semua produk dari API.
+ * Fungsi untuk memuat dan menampilkan semua produk dari API dengan filter.
+ * @param {string} searchTerm - Kata kunci pencarian.
+ * @param {string} categoryId - ID kategori yang dipilih.
+ * @param {string} location - Lokasi yang dipilih.
  */
-async function loadProducts() {
+async function loadProducts(searchTerm = '', categoryId = '', location = '') {
     const productContainer = document.getElementById('product-container');
     if (!productContainer) return;
 
+    // URL backend publik Anda dari Replit
+    const backendUrl = 'https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev';
+    
+    // Bangun URL API secara dinamis dengan parameter filter
+    let url = `${backendUrl}/api/produk?search=${searchTerm}&kategori=${categoryId}&lokasi=${location}`;
+
     try {
-        const response = await fetch('https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev/api/produk');
+        const response = await fetch(url);
         const products = await response.json();
 
-        productContainer.innerHTML = ''; // Kosongkan kontainer dulu
+        productContainer.innerHTML = ''; // Kosongkan kontainer sebelum diisi ulang
 
         if (products.length === 0) {
-            productContainer.innerHTML = '<p class="text-center">Belum ada produk untuk ditampilkan.</p>';
+            productContainer.innerHTML = '<p class="text-center">Produk tidak ditemukan.</p>';
             return;
         }
 
@@ -58,7 +34,8 @@ async function loadProducts() {
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">${product.nama_produk}</h5>
-                                Rp ${product.harga} / ${product.satuan}
+                                <div class="text-muted fst-italic mb-2">Toko: ${product.nama_toko} (${product.lokasi})</div>
+                                Rp ${parseInt(product.harga).toLocaleString('id-ID')} / ${product.satuan}
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -80,6 +57,48 @@ async function loadProducts() {
 }
 
 /**
+ * Fungsi baru untuk memuat kategori dan mengisinya ke dropdown filter.
+ */
+async function loadCategoriesForFilter() {
+    const kategoriSelect = document.getElementById('kategori-filter');
+    if(!kategoriSelect) return;
+    
+    const backendUrl = 'https://d8eee579-45d7-4d5d-b836-9850661d5249-00-23v9sbprvwlhn.pike.replit.dev';
+
+    try {
+        const response = await fetch(`${backendUrl}/api/kategori`);
+        const kategori = await response.json();
+        kategori.forEach(k => {
+            kategoriSelect.innerHTML += `<option value="${k.kategori_id}">${k.nama_kategori}</option>`;
+        });
+    } catch (error) {
+        console.error('Gagal memuat kategori untuk filter:', error);
+    }
+}
+
+
+// Event listener utama yang berjalan saat halaman siap
+document.addEventListener('DOMContentLoaded', () => {
+    // Fungsi setupSharedUI dari file auth-shared.js akan menangani nama, logout, dll.
+    
+    // Panggil fungsi untuk memuat produk awal dan mengisi filter kategori
+    loadProducts();
+    loadCategoriesForFilter();
+
+    // Event listener baru untuk form filter
+    const filterForm = document.getElementById('filter-form');
+    filterForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Mencegah halaman refresh
+        const searchTerm = document.getElementById('search-input').value;
+        const categoryId = document.getElementById('kategori-filter').value;
+        const location = document.getElementById('lokasi-filter').value;
+        
+        // Panggil ulang loadProducts dengan nilai filter yang baru dari form
+        loadProducts(searchTerm, categoryId, location);
+    });
+});
+
+/**
  * Fungsi untuk menambahkan produk ke keranjang di localStorage.
  * @param {number} productId - ID dari produk yang akan ditambahkan.
  */
@@ -96,20 +115,6 @@ function addToCart(productId) {
     }
 
     localStorage.setItem('panganlink_cart', JSON.stringify(cart));
-    updateCartCount();
+    updateCartCount(); // Fungsi ini ada di auth-shared.js
     alert('Produk berhasil ditambahkan ke keranjang!');
-}
-
-/**
- * Fungsi untuk mengupdate angka pada ikon keranjang di navigasi.
- */
-function updateCartCount() {
-    const cartCountElement = document.getElementById('cart-count');
-    if (!cartCountElement) return;
-
-    const cart = JSON.parse(localStorage.getItem('panganlink_cart')) || [];
-    // Hitung total item dengan menjumlahkan semua quantity
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
-    cartCountElement.textContent = totalItems;
 }
