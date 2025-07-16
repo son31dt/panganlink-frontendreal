@@ -15,11 +15,8 @@
     <link href="css/styles.css" rel="stylesheet" />
     <style>
       body#page-top header.masthead {
-        /* Ganti tingginya menjadi lebih pendek, misal 30vh */
-        height: 20vh !important;
+        height: 30vh !important;
         min-height: auto !important;
-
-        /* Properti ini menjaga gambar tetap di tengah */
         background-position: center !important;
         background-size: cover !important;
       }
@@ -27,11 +24,11 @@
   </head>
   <body id="page-top">
     <nav
-      class="navbar navbar-expand-lg navbar-light fixed-top py-3"
+      class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-shrink"
       id="mainNav"
     >
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#page-top">PanganLink Marketplace</a>
+        <a class="navbar-brand" href="marketplace.html">PanganLink Marketplace</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto my-2 my-lg-0 align-items-center">
             <li class="nav-item" id="seller-action-placeholder"></li>
@@ -62,7 +59,7 @@
     </nav>
 
     <header class="masthead">
-      <div class="container px-4 px-lg-5 h-100">
+      <div class="container px-4 px-lg-5">
         <div
           class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center"
         >
@@ -80,6 +77,24 @@
       <div class="container px-4 px-lg-5">
         <h2 class="text-center mt-0">Produk Tersedia</h2>
         <hr class="divider" />
+        
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <form id="filter-form" class="d-flex flex-wrap gap-2">
+                    <input type="text" class="form-control flex-grow-1" id="search-input" placeholder="Cari nama produk...">
+                    <select class="form-select" id="kategori-filter" style="width: auto;">
+                        <option value="">Semua Kategori</option>
+                    </select>
+                    <select class="form-select" id="lokasi-filter" style="width: auto;">
+                        <option value="">Semua Lokasi</option>
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Bandung">Bandung</option>
+                        <option value="Surabaya">Surabaya</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                </form>
+            </div>
+        </div>
         <div
           id="product-container"
           class="row gx-4 gx-lg-5 justify-content-center"
